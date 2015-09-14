@@ -1,0 +1,35 @@
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+
+    android:orientation="vertical">
+
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/my_action_bar_toolbar"
+    android:layout_height="50dp"
+    android:minHeight="50dp"
+    android:layout_width="match_parent"
+    android:background="#ff2196F3">
+
+</android.support.v7.widget.Toolbar>
+    <FrameLayout
+        android:id="@+id/your_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.dd.CircularProgressButton
+            android:id="@+id/btnWithText"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:cpb_textComplete="Success "
+            app:cpb_textError="Error"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</LinearLayout>
