@@ -39,15 +39,13 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
     protected  Context context;
     protected Activity activity;
     protected LoaderManager loaderManager;
-    protected AbstractFragment abstractFragment;
 
 
-    public RVadapter(List<ListData.movie> list, Context context, LoaderManager loaderManager, Activity activity, AbstractFragment abstractFragment) {
+    public RVadapter(List<ListData.movie> list, Context context, LoaderManager loaderManager, Activity activity) {
         this.list = list;
         this.context = context;
         this.loaderManager = loaderManager;
         this.activity = activity;
-        this.abstractFragment = abstractFragment;
     }
 
     @Override
@@ -74,12 +72,6 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
 
                 View sharedView = holder.cv;
                 String transitionName = "fake_name";
-
-                abstractFragment.setExitTransition(TransitionInflater.from(activity).inflateTransition(android.R.transition.explode));
-                abstractFragment.setExitTransition(TransitionInflater.from(activity).inflateTransition(android.R.transition.explode));
-
-                fragment.setSharedElementEnterTransition(TransitionInflater.from(activity).inflateTransition(R.transition.change_image_transform));
-                fragment.setEnterTransition(TransitionInflater.from(activity).inflateTransition(android.R.transition.explode));
 
                 FragmentTransaction ft = ((AppCompatActivity)activity).getSupportFragmentManager().beginTransaction().addSharedElement(sharedView,transitionName);
                 fragment.show(ft, "tag3");
