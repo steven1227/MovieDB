@@ -7,7 +7,7 @@
 
     android:orientation="vertical">
 
-<android.support.v7.widget.Toolbar
+<android.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/my_action_bar_toolbar"
     android:layout_height="50dp"
@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:background="#ff2196F3">
 
-</android.support.v7.widget.Toolbar>
+</android.widget.Toolbar>
     <FrameLayout
         android:id="@+id/your_placeholder"
         android:layout_width="match_parent"

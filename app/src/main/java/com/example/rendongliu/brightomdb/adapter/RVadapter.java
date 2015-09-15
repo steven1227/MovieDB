@@ -1,11 +1,12 @@
 package com.example.rendongliu.brightomdb.adapter;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,15 +36,15 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
     private static final String TAG = "tag3" ;
     List<ListData.movie> list;
     protected  Context context;
-    protected Activity activity;
+    protected FragmentManager fragmentManager;
     protected LoaderManager loaderManager;
 
 
-    public RVadapter(List<ListData.movie> list, Context context, LoaderManager loaderManager, Activity activity) {
+    public RVadapter(List<ListData.movie> list, Context context, LoaderManager loaderManager, FragmentManager fragmentManager) {
         this.list = list;
         this.context = context;
         this.loaderManager = loaderManager;
-        this.activity = activity;
+        this.fragmentManager=fragmentManager;
     }
 
     @Override
@@ -70,7 +71,7 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
 
                 View sharedView = holder.cv;
                 String transitionName = "fake_name";
-                FragmentTransaction ft = ((AppCompatActivity)activity).getSupportFragmentManager().beginTransaction().addSharedElement(sharedView,transitionName);
+                FragmentTransaction ft = fragmentManager.beginTransaction().addSharedElement(sharedView,transitionName);
                 fragment.show(ft, TAG);
 
             }

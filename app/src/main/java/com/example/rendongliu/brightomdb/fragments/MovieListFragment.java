@@ -1,11 +1,14 @@
 package com.example.rendongliu.brightomdb.fragments;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+
+
 import android.support.v7.widget.LinearLayoutManager;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +81,7 @@ public class MovieListFragment extends Fragment {
                 if (o.getResponse() == null) {
 
                     Toast.makeText(context, "The query success:", Toast.LENGTH_SHORT).show();
-                    rv.setAdapter(new RVadapter(o.getSearch(),getActivity().getApplicationContext(),getActivity().getLoaderManager(), getActivity()));
+                    rv.setAdapter(new RVadapter(o.getSearch(),getActivity().getApplicationContext(),getActivity().getLoaderManager(), getActivity().getFragmentManager()));
                 } else if (o.getResponse()!=null && o.getResponse().equals("False")){
                     Toast.makeText(context, o.getError(), Toast.LENGTH_SHORT).show();  //add another fragment to show the error image
                 }

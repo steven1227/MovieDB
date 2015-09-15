@@ -12,12 +12,13 @@ import com.example.rendongliu.brightomdb.R;
 import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.icemobile.framework.image.data.AsyncImageView;
 
+import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
 import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment;
 
 /**
  * Created by rendong.liu on 11/09/15.
  */
-public class DiagFragment extends SupportBlurDialogFragment {
+public class DiagFragment extends BlurDialogFragment {
 
     @Nullable
     @Override

@@ -1,17 +1,20 @@
 package com.example.rendongliu.brightomdb.fragments;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+
+
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -56,14 +59,16 @@ public class WelcomeFragment extends Fragment {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (event.getRawX() >= (movie_param.getRight() - movie_param.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
 
-                        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                        FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
 
                         MovieListFragment fragmentDemo = new MovieListFragment();
                         Bundle args = new Bundle();
                         args.putString("movie", movie_param.getText().toString());
                         fragmentDemo.setArguments(args);
 
-                        ft.setCustomAnimations(R.animator.enter_anim, 0, 0, R.animator.exit_anim);
+                        fragmentDemo.setEnterTransition(new Slide(Gravity.RIGHT));
+                        fragmentDemo.setExitTransition(new Slide(Gravity.LEFT));
+
                         ft.replace(R.id.your_placeholder, fragmentDemo);
                         ft.addToBackStack(TAG);
                         ft.commit();
