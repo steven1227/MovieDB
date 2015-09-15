@@ -27,8 +27,8 @@ public class MovieHttpConnectionService extends HttpConnectionService {
 
     }
 
-    public <T> IceRequestBuilder<T, IOException> createStampsRequestBuilder() {
-        IceRequestBuilder<T, IOException> requestBuilder = super.createRequestBuilder()
+    public <T> IceRequestBuilder<T, OmdbException> createStampsRequestBuilder() {
+        IceRequestBuilder<T, OmdbException> requestBuilder = super.createRequestBuilder()
                 .addRequestHeader("Accept", "application/json")
                 .addRequestHeader("Content-Type", "application/json")
                 .setReadTimeout(STAMPS_READ_TIMEOUT)

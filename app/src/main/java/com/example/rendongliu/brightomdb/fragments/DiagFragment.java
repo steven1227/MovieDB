@@ -1,6 +1,7 @@
 package com.example.rendongliu.brightomdb.fragments;
 
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,13 +13,11 @@ import com.example.rendongliu.brightomdb.R;
 import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.icemobile.framework.image.data.AsyncImageView;
 
-import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
-import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment;
 
 /**
  * Created by rendong.liu on 11/09/15.
  */
-public class DiagFragment extends BlurDialogFragment {
+public class DiagFragment extends DialogFragment {
 
     @Nullable
     @Override
@@ -37,7 +36,6 @@ public class DiagFragment extends BlurDialogFragment {
         movie_year.setText(movieData.getYear());
         movie_content.setText(movieData.getPlot());
         movie_actors.setText("Actors: "+movieData.getActors());
-
         return view;
     }
 

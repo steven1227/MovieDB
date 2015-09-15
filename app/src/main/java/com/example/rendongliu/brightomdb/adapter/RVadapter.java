@@ -20,6 +20,7 @@ import com.example.rendongliu.brightomdb.domain.ListData;
 import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.example.rendongliu.brightomdb.dao.impl.MovieDaoimpl;
 import com.example.rendongliu.brightomdb.fragments.DiagFragment;
+import com.example.rendongliu.brightomdb.http.OmdbException;
 import com.icemobile.framework.concurrent.resulthandler.TaskResultHandler;
 import com.icemobile.framework.image.data.AsyncImageView;
 import com.icemobile.framework.loaders.BaseLoader;
@@ -102,12 +103,12 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
     }
 
     private void loadCurrentProgram(final int position, final AsyncImageView moviephoto, final TextView actor ,  final DiagFragment i) {
-        loaderManager.restartLoader(position+1, null, new BaseLoaderCallbacks<MovieData, IOException>() {
+        loaderManager.restartLoader(position+1, null, new BaseLoaderCallbacks<MovieData, OmdbException>() {
             @Override
-            public BaseLoader<MovieData, IOException> onCreateBaseLoader() {
-                return new BaseLoader<MovieData, IOException>(context) {
+            public BaseLoader<MovieData, OmdbException> onCreateBaseLoader() {
+                return new BaseLoader<MovieData, OmdbException>(context) {
                     @Override
-                    protected void onStartLoading(TaskResultHandler<MovieData, IOException> loaderCallback) {
+                    protected void onStartLoading(TaskResultHandler<MovieData, OmdbException> loaderCallback) {
                         (new MovieDaoimpl(context, list.get(position).getImdbID())).getData(loaderCallback);
                     }
                 };
@@ -123,13 +124,11 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
                 if (!o.getResponse().equals("False")) {
                     actor.setText("Actors:" + o.getActors());
                     moviephoto.setImageUrl(o.getPoster());
-
                 } else {
                 }
             }
-
             @Override
-            public void onLoaderTaskFailed(IOException e) {
+            public void onLoaderTaskFailed(OmdbException e) {
                 Toast.makeText(context, "The query2 failed due to " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });

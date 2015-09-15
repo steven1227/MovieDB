@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.rendongliu.brightomdb.dao.ListDao;
 import com.example.rendongliu.brightomdb.domain.ListData;
 import com.example.rendongliu.brightomdb.http.MovieHttpConnectionService;
+import com.example.rendongliu.brightomdb.http.OmdbException;
 import com.icemobile.framework.concurrent.manager.ThreadingManager;
 import com.icemobile.framework.concurrent.resulthandler.TaskResultHandler;
 import com.icemobile.framework.concurrent.task.Task;
@@ -33,12 +34,12 @@ public class ListDaoimpl  extends ThreadingManager implements ListDao {
     private Context context;
 
     @Override
-    public void getData(TaskResultHandler<ListData, IOException> resultHandler) {
+    public void getData(TaskResultHandler<ListData, OmdbException> resultHandler) {
 
 
-        final Task<ListData, IOException> task = new Task<ListData, IOException>() {
+        final Task<ListData, OmdbException> task = new Task<ListData, OmdbException>() {
             @Override
-            public ListData execute() throws IOException {
+            public ListData execute() throws OmdbException {
                 ListData inData;
                 try {
 
@@ -48,7 +49,7 @@ public class ListDaoimpl  extends ThreadingManager implements ListDao {
                     return inData;
 
 
-                } catch (IOException ioException) {
+                } catch (OmdbException ioException) {
 
                     throw ioException;
                 }
@@ -58,10 +59,10 @@ public class ListDaoimpl  extends ThreadingManager implements ListDao {
         this.executeTask(task, resultHandler);
     }
 
-    public HttpConnectionService.IceRequestBuilder<ListData, IOException> getRequestBuilder() {
+    public HttpConnectionService.IceRequestBuilder<ListData, OmdbException> getRequestBuilder() {
 
         final GsonInputSerializer<ListData> gSonSerializer = new GsonInputSerializer<>(new BaseGSonParser<ListData>(ListData.class));
-        HttpConnectionService.IceRequestBuilder<ListData, IOException> stampsRequestBuilder = httpConnectionService.createStampsRequestBuilder();
+        HttpConnectionService.IceRequestBuilder<ListData, OmdbException> stampsRequestBuilder = httpConnectionService.createStampsRequestBuilder();
         stampsRequestBuilder.setMethod(HTTPMethod.GET)
                 .appendQueryParameter("s", param)
                 .appendQueryParameter("type","movie")

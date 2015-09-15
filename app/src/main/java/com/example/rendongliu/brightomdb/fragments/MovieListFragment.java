@@ -20,6 +20,7 @@ import com.example.rendongliu.brightomdb.R;
 import com.example.rendongliu.brightomdb.adapter.RVadapter;
 import com.example.rendongliu.brightomdb.domain.ListData;
 import com.example.rendongliu.brightomdb.dao.impl.ListDaoimpl;
+import com.example.rendongliu.brightomdb.http.OmdbException;
 import com.icemobile.framework.concurrent.resulthandler.TaskResultHandler;
 import com.icemobile.framework.loaders.BaseLoader;
 import com.icemobile.framework.loaders.BaseLoaderCallbacks;
@@ -64,12 +65,12 @@ public class MovieListFragment extends Fragment {
     }
 
     private void loadCurrentProgram() {
-        getActivity().getLoaderManager().restartLoader(LOADER_ID, null, new BaseLoaderCallbacks<ListData, IOException>() {
+        getActivity().getLoaderManager().restartLoader(LOADER_ID, null, new BaseLoaderCallbacks<ListData, OmdbException>() {
             @Override
-            public BaseLoader<ListData, IOException> onCreateBaseLoader() {
-                return new BaseLoader<ListData, IOException>(getActivity().getApplicationContext()) {
+            public BaseLoader<ListData, OmdbException> onCreateBaseLoader() {
+                return new BaseLoader<ListData, OmdbException>(getActivity().getApplicationContext()) {
                     @Override
-                    protected void onStartLoading(TaskResultHandler<ListData, IOException> loaderCallback) {
+                    protected void onStartLoading(TaskResultHandler<ListData, OmdbException> loaderCallback) {
                         (new ListDaoimpl(context, movietitle)).getData(loaderCallback);
                     }
                 };
@@ -89,9 +90,9 @@ public class MovieListFragment extends Fragment {
 
 
             @Override
-            public void onLoaderTaskFailed(IOException e) {
+            public void onLoaderTaskFailed(OmdbException e) {
 
-                Toast.makeText(context, "The query1 failed due to " + e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "The query1 failed due to " +e.getErrorType() + " " +e.getMessage(), Toast.LENGTH_LONG).show();
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });

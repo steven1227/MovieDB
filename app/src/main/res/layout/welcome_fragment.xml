@@ -3,9 +3,7 @@
     xmlns:bootstrapbutton="http://schemas.android.com/apk/res-auto"
     android:id="@+id/background"
     android:orientation="vertical"
-    android:clickable="true"
     android:background="@drawable/sky"
-    android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

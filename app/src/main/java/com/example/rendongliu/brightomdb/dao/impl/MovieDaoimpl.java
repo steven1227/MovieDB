@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.rendongliu.brightomdb.dao.MovieDao;
 import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.example.rendongliu.brightomdb.http.MovieHttpConnectionService;
+import com.example.rendongliu.brightomdb.http.OmdbException;
 import com.icemobile.framework.concurrent.manager.ThreadingManager;
 import com.icemobile.framework.concurrent.resulthandler.TaskResultHandler;
 import com.icemobile.framework.concurrent.task.Task;
@@ -34,12 +35,12 @@ public class MovieDaoimpl extends ThreadingManager implements MovieDao {
     private Context context;
 
     @Override
-    public void getData(TaskResultHandler<MovieData, IOException> resultHandler) {
+    public void getData(TaskResultHandler<MovieData, OmdbException> resultHandler) {
 
 
-        final Task<MovieData, IOException> task = new Task<MovieData, IOException>() {
+        final Task<MovieData, OmdbException> task = new Task<MovieData, OmdbException>() {
             @Override
-            public MovieData execute() throws IOException {
+            public MovieData execute() throws OmdbException {
                 MovieData inData;
                 try {
 
@@ -49,7 +50,7 @@ public class MovieDaoimpl extends ThreadingManager implements MovieDao {
                     return inData;
 
 
-                } catch (IOException ioException) {
+                } catch (OmdbException ioException) {
 
                     throw ioException;
                 }
@@ -59,10 +60,10 @@ public class MovieDaoimpl extends ThreadingManager implements MovieDao {
         this.executeTask(task, resultHandler);
     }
 
-    public HttpConnectionService.IceRequestBuilder<MovieData, IOException> getRequestBuilder() {
+    public HttpConnectionService.IceRequestBuilder<MovieData, OmdbException> getRequestBuilder() {
 
         final GsonInputSerializer<MovieData> gSonSerializer = new GsonInputSerializer<>(new BaseGSonParser<MovieData>(MovieData.class));
-        HttpConnectionService.IceRequestBuilder<MovieData, IOException> stampsRequestBuilder = httpConnectionService.createStampsRequestBuilder();
+        HttpConnectionService.IceRequestBuilder<MovieData, OmdbException> stampsRequestBuilder = httpConnectionService.createStampsRequestBuilder();
         stampsRequestBuilder.setMethod(HTTPMethod.GET)
                 .appendQueryParameter("i",param)
                 .appendEncodedPath("")
