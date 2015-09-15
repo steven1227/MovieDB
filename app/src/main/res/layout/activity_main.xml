@@ -21,15 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.dd.CircularProgressButton
-            android:id="@+id/btnWithText"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="16dp"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            app:cpb_textComplete="Success "
-            app:cpb_textError="Error"
-            android:layout_gravity="center" />
+        <ProgressBar
+            android:id="@+id/yourId"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/circular" />
     </FrameLayout>
 </LinearLayout>

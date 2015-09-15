@@ -3,13 +3,11 @@ package com.example.rendongliu.brightomdb.adapter;
 import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rendongliu.brightomdb.R;
-import com.example.rendongliu.brightomdb.dao.ListData;
-import com.example.rendongliu.brightomdb.dao.MovieData;
+import com.example.rendongliu.brightomdb.domain.ListData;
+import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.example.rendongliu.brightomdb.dao.impl.MovieDaoimpl;
-import com.example.rendongliu.brightomdb.fragments.AbstractFragment;
 import com.example.rendongliu.brightomdb.fragments.DiagFragment;
 import com.icemobile.framework.concurrent.resulthandler.TaskResultHandler;
 import com.icemobile.framework.image.data.AsyncImageView;
@@ -35,6 +32,7 @@ import java.util.List;
  */
 public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder> {
 
+    private static final String TAG = "tag3" ;
     List<ListData.movie> list;
     protected  Context context;
     protected Activity activity;
@@ -72,9 +70,8 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
 
                 View sharedView = holder.cv;
                 String transitionName = "fake_name";
-
                 FragmentTransaction ft = ((AppCompatActivity)activity).getSupportFragmentManager().beginTransaction().addSharedElement(sharedView,transitionName);
-                fragment.show(ft, "tag3");
+                fragment.show(ft, TAG);
 
             }
         });
@@ -119,7 +116,7 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
             public void onLoaderTaskSuccess(MovieData o) {
 
                 Bundle args = new Bundle();
-                args.putSerializable("movie",o);
+                args.putParcelable("movie", o);
                 i.setArguments(args);
 
                 if (!o.getResponse().equals("False")) {

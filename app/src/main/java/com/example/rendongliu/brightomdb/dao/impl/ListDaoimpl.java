@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.rendongliu.brightomdb.dao.ListDao;
-import com.example.rendongliu.brightomdb.dao.ListData;
+import com.example.rendongliu.brightomdb.domain.ListData;
 import com.example.rendongliu.brightomdb.http.MovieHttpConnectionService;
 import com.icemobile.framework.concurrent.manager.ThreadingManager;
 import com.icemobile.framework.concurrent.resulthandler.TaskResultHandler;
@@ -44,7 +44,6 @@ public class ListDaoimpl  extends ThreadingManager implements ListDao {
 
                     inData = httpConnectionService.doRequest(getRequestBuilder());
                     if (inData != null) {
-//                        putDataToCache(inData);
                     }
                     return inData;
 

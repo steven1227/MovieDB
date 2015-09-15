@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.rendongliu.brightomdb.dao.MovieDao;
-import com.example.rendongliu.brightomdb.dao.MovieData;
+import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.example.rendongliu.brightomdb.http.MovieHttpConnectionService;
 import com.icemobile.framework.concurrent.manager.ThreadingManager;
 import com.icemobile.framework.concurrent.resulthandler.TaskResultHandler;
@@ -45,7 +45,6 @@ public class MovieDaoimpl extends ThreadingManager implements MovieDao {
 
                     inData = httpConnectionService.doRequest(getRequestBuilder());
                     if (inData != null) {
-//                        putDataToCache(inData);
                     }
                     return inData;
 

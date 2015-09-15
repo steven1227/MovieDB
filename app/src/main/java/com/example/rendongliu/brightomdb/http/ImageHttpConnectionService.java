@@ -17,15 +17,9 @@ public class ImageHttpConnectionService extends HttpConnectionService {
     final private static int STAMPS_READ_TIMEOUT = 1000 * 10;
     final private static int STAMPS_CONNECT_TIMEOUT = 1000 * 2; // to reproduce 5 seconds on device
 
-    //    private static final int CACHE_SIZE = 2 * 1024 * 1024; //2Mb
-//    public static final String BRIGHT_LOYALTY_ID_HEADER = "bright-loyalty-id";
-//    private static final String BRIGHT_PREVIEW = "BRIGHT-PREVIEW";
     private Context context;
 
-//    public ImageHttpConnectionService(Context context, String ImageUrl) {
-//        this(context, ImageUrl);
-//        this.context = context;
-//    }
+
 
     public ImageHttpConnectionService(Context context, final String webserviceUrl) {
 

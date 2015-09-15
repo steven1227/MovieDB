@@ -1,4 +1,4 @@
-package com.example.rendongliu.brightomdb.dao;
+package com.example.rendongliu.brightomdb.domain;
 
 import java.util.List;
 

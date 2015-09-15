@@ -10,16 +10,15 @@
     android:layout_height="match_parent">
 
 
-
-    <com.beardedhen.androidbootstrap.BootstrapEditText
+    <EditText
         android:id="@+id/txtOne"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:hint="Movie Name"
-        bootstrapbutton:be_roundedCorners="true"
-        bootstrapbutton:be_state="warning"
         android:inputType="text"
         android:maxLines="1"
+        android:paddingLeft="10sp"
+        android:background="@drawable/rounded_edittext"
         android:drawableRight="@android:drawable/ic_menu_search"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
@@ -31,7 +30,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Movie Movie Go"
         android:id="@+id/textView"
-        android:textSize="30sp"
+        android:textSize="40sp"
         android:textStyle="bold"
         android:layout_marginBottom="55dp"
         android:layout_above="@+id/txtOne"

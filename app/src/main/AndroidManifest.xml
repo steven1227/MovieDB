@@ -3,10 +3,9 @@
     package="com.example.rendongliu.brightomdb" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- extra for GCM -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
 
     <application
         android:name=".Myapplication"

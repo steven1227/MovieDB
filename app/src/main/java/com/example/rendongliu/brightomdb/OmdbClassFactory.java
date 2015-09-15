@@ -44,13 +44,4 @@ public class OmdbClassFactory {
     }
 
 
-//
-//    public CachingImageManager getCachingImageManger() {
-//        if (cachingImageManager == null) {
-//            cachingImageManager = new CachingImageManager(getAsyncImageManager(), null);
-//
-//        }
-//
-//        return cachingImageManager;
-//    }
 }

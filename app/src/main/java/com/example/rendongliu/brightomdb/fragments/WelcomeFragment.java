@@ -2,21 +2,19 @@ package com.example.rendongliu.brightomdb.fragments;
 
 import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.example.rendongliu.brightomdb.R;
 
 /**
@@ -25,7 +23,9 @@ import com.example.rendongliu.brightomdb.R;
 public class WelcomeFragment extends Fragment {
 
     private TextView textView;
-    protected BootstrapEditText movie_param;
+    protected EditText movie_param;
+    private static String TAG= "tag1";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,43 +37,35 @@ public class WelcomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.welcome_fragment, container, false);
 
-
         View backgroundimage = view.findViewById(R.id.background);
         Drawable background = backgroundimage.getBackground();
         background.setAlpha(90);
 
         textView = (TextView)view.findViewById(R.id.textView);
-        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "Luna.ttf");
-        textView.setTypeface(typeface);
-
-        movie_param=(BootstrapEditText)view.findViewById(R.id.txtOne);
-        movie_param.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
-            }
-        });
+        textView.setText("Movie Movie Go", TextView.BufferType.SPANNABLE);
+        textView.setTextColor(Color.WHITE);
+        movie_param=(EditText)view.findViewById(R.id.txtOne);
 
 
         movie_param.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
+
                 final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (event.getRawX() >= (movie_param.getRight() - movie_param.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
 
-//
                         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                        AbstractFragment fragmentDemo = AbstractFragment.newInstance(movie_param.getText().toString());
+
+                        MovieListFragment fragmentDemo = new MovieListFragment();
+                        Bundle args = new Bundle();
+                        args.putString("movie", movie_param.getText().toString());
+                        fragmentDemo.setArguments(args);
+
                         ft.setCustomAnimations(R.animator.enter_anim, 0, 0, R.animator.exit_anim);
                         ft.replace(R.id.your_placeholder, fragmentDemo);
-                        ft.addToBackStack("tag1");
+                        ft.addToBackStack(TAG);
                         ft.commit();
                         return true;
                     }
@@ -82,15 +74,8 @@ public class WelcomeFragment extends Fragment {
             }
         });
 
-//        String text = " <font color='white'>Movie </font><font color='white'>Movie</font><font color='white'> Go</font>";
-        textView.setText("Movie Movie Go", TextView.BufferType.SPANNABLE);
-        textView.setTextColor(Color.WHITE);
-        return view;
-    }
 
-    public void hideKeyboard(View view) {
-        InputMethodManager inputMethodManager =(InputMethodManager)getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        return view;
     }
 
 

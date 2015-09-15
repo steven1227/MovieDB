@@ -1,5 +1,6 @@
 package com.example.rendongliu.brightomdb.dao;
 
+import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.icemobile.framework.concurrent.resulthandler.TaskResultHandler;
 
 import java.io.IOException;

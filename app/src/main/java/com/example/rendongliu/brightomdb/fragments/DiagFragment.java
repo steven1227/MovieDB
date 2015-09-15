@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.rendongliu.brightomdb.R;
-import com.example.rendongliu.brightomdb.dao.MovieData;
+import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.icemobile.framework.image.data.AsyncImageView;
 
 import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment;
@@ -18,13 +18,13 @@ import fr.tvbarthel.lib.blurdialogfragment.SupportBlurDialogFragment;
  * Created by rendong.liu on 11/09/15.
  */
 public class DiagFragment extends SupportBlurDialogFragment {
-    protected MovieData movieData;
-
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment, container, false);
+        MovieData movieData =(MovieData)getArguments().getParcelable("movie");
+
         AsyncImageView asyncImageView = (AsyncImageView)view.findViewById(R.id.movie_photo);
         asyncImageView.setImageUrl(movieData.getPoster());
         TextView movie_title = (TextView)view.findViewById(R.id.movie_name);
@@ -40,11 +40,6 @@ public class DiagFragment extends SupportBlurDialogFragment {
         return view;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        movieData =(MovieData)getArguments().getSerializable("movie");
-    }
 
 }
 

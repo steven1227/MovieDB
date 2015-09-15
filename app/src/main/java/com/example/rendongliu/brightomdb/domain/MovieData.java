@@ -1,11 +1,12 @@
-package com.example.rendongliu.brightomdb.dao;
+package com.example.rendongliu.brightomdb.domain;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by rendong.liu on 17/08/15.
  */
-public class MovieData implements Serializable {
+public class MovieData implements Parcelable {
     protected String Title;
     protected String Year;
     protected String Director;
@@ -18,25 +19,39 @@ public class MovieData implements Serializable {
     protected String Error;
 
 
+
+
+    public static final Parcelable.Creator<MovieData> CREATOR = new Parcelable.Creator<MovieData>() {
+        public MovieData createFromParcel(Parcel in) {
+            return new MovieData(in);
+        }
+
+        public MovieData[] newArray(int size) {
+            return new MovieData[size];
+        }
+    };
+
+
+
+    public MovieData(Parcel in) {
+        Title = in.readString();
+        Response = in.readString();
+        Type = in.readString();
+        Poster =in.readString();
+        Language = in.readString();
+        Plot = in.readString();
+        Director = in.readString();
+        Year = in.readString();
+        Actors = in.readString();
+        Error = in.readString();
+    }
+
     public String getPlot() {
         return Plot;
     }
 
     public void setPlot(String plot) {
         Plot = plot;
-    }
-
-    public MovieData(String title, String response, String type, String poster, String language, String director, String year, String error, String actors, String plot) {
-        Title = title;
-        Response = response;
-        Type = type;
-        Poster = poster;
-        Language = language;
-        Plot = plot;
-        Director = director;
-        Year = year;
-        Actors = actors;
-        Error = error;
     }
 
     public String getActors() {
@@ -109,5 +124,25 @@ public class MovieData implements Serializable {
 
     public void setYear(String year) {
         Year = year;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Title);
+        dest.writeString(Year);
+        dest.writeString( Director);
+        dest.writeString(Actors);
+        dest.writeString( Language );
+        dest.writeString( Poster );
+        dest.writeString(Type );
+        dest.writeString( Response );
+        dest.writeString(Plot );
+        dest.writeString( Error );
+
     }
 }
