@@ -58,17 +58,26 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
 
     @Override
     public void onBindViewHolder(final PersonViewHolder holder, int position) {
-        final DiagFragment fragment = new DiagFragment();
-
         holder.movieName.setText(list.get(position).getTitle());
         holder.movieYear.setText("Year " + list.get(position).getYear());
-
         holder.moviePhoto.setImageUrl(null);
         holder.moviePhoto.applyPlaceholder();
 
-        loadCurrentProgram(position, holder.moviePhoto, holder.movieActors, fragment);
+        final DiagFragment fragment = new DiagFragment();
+        loadCurrentProgram(position,holder.moviePhoto, holder.movieActors, fragment);
 
-        //...
+        holder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                View sharedView = holder.cv;
+                String transitionName = "fake_name";
+                FragmentTransaction ft = fragmentManager.beginTransaction().addSharedElement(sharedView,transitionName);
+                fragment.show(ft, TAG);
+
+            }
+        });
     }
 
     @Override
@@ -109,13 +118,20 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
 
             @Override
             public void onLoaderTaskSuccess(MovieData o) {
-                //...
-                moviephoto.setImageUrl(o.getPoster());
-               // ...
+
+                Bundle args = new Bundle();
+                args.putParcelable("movie", o);
+                i.setArguments(args);
+
+                if (!o.getResponse().equals("False")) {
+                    actor.setText("Actors:" + o.getActors());
+                    moviephoto.setImageUrl(o.getPoster());
+                } else {
+                }
             }
             @Override
             public void onLoaderTaskFailed(OmdbException e) {
-               // ...
+                Toast.makeText(context, "The query2 failed due to " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
