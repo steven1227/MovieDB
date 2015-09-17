@@ -43,15 +43,10 @@ public class MovieDaoimpl extends ThreadingManager implements MovieDao {
             public MovieData execute() throws OmdbException {
                 MovieData inData;
                 try {
-
                     inData = httpConnectionService.doRequest(getRequestBuilder());
-                    if (inData != null) {
-                    }
                     return inData;
 
-
                 } catch (OmdbException ioException) {
-
                     throw ioException;
                 }
 

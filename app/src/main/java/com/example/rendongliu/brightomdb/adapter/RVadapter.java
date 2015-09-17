@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rendongliu.brightomdb.R;
+import com.example.rendongliu.brightomdb.dao.MovieDao;
 import com.example.rendongliu.brightomdb.domain.ListData;
 import com.example.rendongliu.brightomdb.domain.MovieData;
 import com.example.rendongliu.brightomdb.dao.impl.MovieDaoimpl;
@@ -57,26 +58,17 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
 
     @Override
     public void onBindViewHolder(final PersonViewHolder holder, int position) {
+        final DiagFragment fragment = new DiagFragment();
+
         holder.movieName.setText(list.get(position).getTitle());
         holder.movieYear.setText("Year " + list.get(position).getYear());
+
         holder.moviePhoto.setImageUrl(null);
         holder.moviePhoto.applyPlaceholder();
 
-        final DiagFragment fragment = new DiagFragment();
-        loadCurrentProgram(position,holder.moviePhoto, holder.movieActors, fragment);
+        loadCurrentProgram(position, holder.moviePhoto, holder.movieActors, fragment);
 
-        holder.cv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                View sharedView = holder.cv;
-                String transitionName = "fake_name";
-                FragmentTransaction ft = fragmentManager.beginTransaction().addSharedElement(sharedView,transitionName);
-                fragment.show(ft, TAG);
-
-            }
-        });
+        //...
     }
 
     @Override
@@ -103,33 +95,27 @@ public class RVadapter extends RecyclerView.Adapter <RVadapter.PersonViewHolder>
     }
 
     private void loadCurrentProgram(final int position, final AsyncImageView moviephoto, final TextView actor ,  final DiagFragment i) {
+        final MovieDao movieDao=(new MovieDaoimpl(context, list.get(position).getImdbID()));
         loaderManager.restartLoader(position+1, null, new BaseLoaderCallbacks<MovieData, OmdbException>() {
             @Override
             public BaseLoader<MovieData, OmdbException> onCreateBaseLoader() {
                 return new BaseLoader<MovieData, OmdbException>(context) {
                     @Override
                     protected void onStartLoading(TaskResultHandler<MovieData, OmdbException> loaderCallback) {
-                        (new MovieDaoimpl(context, list.get(position).getImdbID())).getData(loaderCallback);
+                        movieDao.getData(loaderCallback);
                     }
                 };
             }
 
             @Override
             public void onLoaderTaskSuccess(MovieData o) {
-
-                Bundle args = new Bundle();
-                args.putParcelable("movie", o);
-                i.setArguments(args);
-
-                if (!o.getResponse().equals("False")) {
-                    actor.setText("Actors:" + o.getActors());
-                    moviephoto.setImageUrl(o.getPoster());
-                } else {
-                }
+                //...
+                moviephoto.setImageUrl(o.getPoster());
+               // ...
             }
             @Override
             public void onLoaderTaskFailed(OmdbException e) {
-                Toast.makeText(context, "The query2 failed due to " + e.getMessage(), Toast.LENGTH_LONG).show();
+               // ...
             }
         });
 

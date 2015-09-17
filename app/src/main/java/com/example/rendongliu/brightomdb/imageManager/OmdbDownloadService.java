@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import com.example.rendongliu.brightomdb.http.ImageHttpConnectionService;
 import com.example.rendongliu.brightomdb.http.MovieHttpConnectionService;
 import com.icemobile.framework.image.data.ImageInfo;
+import com.icemobile.framework.image.data.handler.BitmapInputSerializer;
 import com.icemobile.framework.image.data.manager.ImageDownloadService;
 import com.icemobile.framework.image.exception.GetImageException;
 
@@ -21,11 +22,11 @@ public class OmdbDownloadService implements ImageDownloadService {
     public static final String QUERY_PARAMETER_PATH = "path";
     private Context context;
     private ImageHttpConnectionService httpConnectionService;
-    private SyncBitmapInputSerializer bitmapInputSerializer;
+    private BitmapInputSerializer bitmapInputSerializer;
 
     public OmdbDownloadService(Context context){
         this.context=context;
-        bitmapInputSerializer = new SyncBitmapInputSerializer();
+        bitmapInputSerializer = new BitmapInputSerializer();
     }
 
     @Override

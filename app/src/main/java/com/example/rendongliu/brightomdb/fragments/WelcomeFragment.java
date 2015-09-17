@@ -65,7 +65,6 @@ public class WelcomeFragment extends Fragment {
                         Bundle args = new Bundle();
                         args.putString("movie", movie_param.getText().toString());
                         fragmentDemo.setArguments(args);
-
                         fragmentDemo.setEnterTransition(new Slide(Gravity.RIGHT));
                         fragmentDemo.setExitTransition(new Slide(Gravity.LEFT));
 
