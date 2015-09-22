@@ -27,7 +27,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:max="100"
+            android:max="1000"
             android:progress="0"
             android:progressDrawable="@drawable/circular" />
     </FrameLayout>

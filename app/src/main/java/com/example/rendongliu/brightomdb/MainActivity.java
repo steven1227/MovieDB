@@ -33,8 +33,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         progressBar=(ProgressBar)findViewById(R.id.yourId);
-        ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", 1, 200);
-        animation.setDuration(2000); //in milliseconds
+        ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress", 1, 1000);
+        animation.setDuration(5000); //in milliseconds
         animation.setInterpolator(new DecelerateInterpolator());
         progressBar.setVisibility(View.INVISIBLE);
         animation.start();

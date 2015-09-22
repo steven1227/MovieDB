@@ -2,14 +2,19 @@ package com.example.rendongliu.brightomdb.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +49,17 @@ public class MovieListFragment extends Fragment {
         movietitle = getArguments().getString("movie");
     }
 
+    private BroadcastReceiver mMessageReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String message = intent.getStringExtra("json");
+            if(message!=null){
+
+            }
+
+        }
+    };
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -60,44 +76,16 @@ public class MovieListFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
         rv.setHasFixedSize(true);
-        loadCurrentProgram();
+
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageReceiver,
+                new IntentFilter("custom-event-name"));
+
         return view;
     }
 
-    private void loadCurrentProgram() {
-        getActivity().getLoaderManager().restartLoader(LOADER_ID, null, new BaseLoaderCallbacks<ListData, OmdbException>() {
-            @Override
-            public BaseLoader<ListData, OmdbException> onCreateBaseLoader() {
-                return new BaseLoader<ListData, OmdbException>(getActivity().getApplicationContext()) {
-                    @Override
-                    protected void onStartLoading(TaskResultHandler<ListData, OmdbException> loaderCallback) {
-                        (new ListDaoimpl(context, movietitle)).getData(loaderCallback);
-                    }
-                };
-            }
-
-            @Override
-            public void onLoaderTaskSuccess(ListData o) {
-                progressBar.setVisibility(View.INVISIBLE);
-                if (o.getResponse() == null) {
-
-                    Toast.makeText(context, "The query success:", Toast.LENGTH_SHORT).show();
-                    rv.setAdapter(new RVadapter(o.getSearch(),getActivity().getApplicationContext(),getActivity().getLoaderManager(), getActivity().getFragmentManager()));
-                } else if (o.getResponse()!=null && o.getResponse().equals("False")){
-                    Toast.makeText(context, o.getError(), Toast.LENGTH_SHORT).show();  //add another fragment to show the error image
-                }
-            }
-
-
-            @Override
-            public void onLoaderTaskFailed(OmdbException e) {
-
-                Toast.makeText(context, "The query1 failed due to " +e.getErrorType() + " " +e.getMessage(), Toast.LENGTH_LONG).show();
-                progressBar.setVisibility(View.INVISIBLE);
-            }
-        });
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mMessageReceiver);
     }
-
-
 }

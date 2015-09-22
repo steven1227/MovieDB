@@ -3,6 +3,7 @@ package com.example.rendongliu.brightomdb.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.rendongliu.brightomdb.R;
+import com.example.rendongliu.brightomdb.service.MyService;
 
 /**
  * Created by rendong.liu on 08/09/15.
@@ -71,6 +73,10 @@ public class WelcomeFragment extends Fragment {
                         ft.replace(R.id.your_placeholder, fragmentDemo);
                         ft.addToBackStack(TAG);
                         ft.commit();
+
+                        Intent intent = new Intent(getActivity(), MyService.class);
+                        getActivity().startService(intent);
+
                         return true;
                     }
                 }
